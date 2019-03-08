@@ -12,12 +12,15 @@ tipPercents.forEach(p => p.addEventListener('click', handleClick));
 
 function handleClick() {
     const tipButton = this as HTMLButtonElement;
-    tipPercents.forEach(tp => {
-        (tp.id == tipButton.id) ? tp.className = "btn btn-secondary" : tp.className = "btn btn-primary";
-    });
-
     let inputAmount = parseFloat((<HTMLInputElement>document.getElementById("amount")).value);
+
     if (inputAmount > 0) {
+        document.getElementById("amount").className = "form-control";
+
+        tipPercents.forEach(tp => {
+            (tp.id == tipButton.id) ? tp.className = "btn btn-secondary" : tp.className = "btn btn-primary";
+        });
+
         billAmt.innerText = inputAmount.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
         tipPercent.innerText = tipButton.value;
         tip2Percent.innerText = 'You are tipping ' + tipButton.value;
@@ -25,4 +28,16 @@ function handleClick() {
         tipAmount.innerText = tip.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
         totalAmt.innerText = (inputAmount + tip).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     }
+    else {
+        ResetFields;
+        document.getElementById("amount").className = "error";
+    }
+}
+
+function ResetFields() {
+    billAmt.innerText = "";
+    tipPercent.innerText = "";
+    tip2Percent.innerText = "";
+    tipAmount.innerText = "";
+    totalAmt.innerText = "";
 }
