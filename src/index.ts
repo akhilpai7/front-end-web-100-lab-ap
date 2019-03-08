@@ -8,20 +8,20 @@ const totalAmt = document.getElementById('totalAmt');
 const calculateTip = (a: number, b: number) => a * b;
 
 const tipPercents = document.querySelectorAll('input[type="button"]');
-tipPercents.forEach(b => b.addEventListener('click', handleClick));
+tipPercents.forEach(p => p.addEventListener('click', handleClick));
 
 function handleClick() {
-    const t = this as HTMLButtonElement;
+    const tipButton = this as HTMLButtonElement;
     tipPercents.forEach(tp => {
-        (tp.id == t.id) ? tp.className = "btn btn-secondary" : tp.className = "btn btn-primary";
+        (tp.id == tipButton.id) ? tp.className = "btn btn-secondary" : tp.className = "btn btn-primary";
     });
 
     let inputAmount = parseFloat((<HTMLInputElement>document.getElementById("amount")).value);
     if (inputAmount > 0) {
         billAmt.innerText = inputAmount.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-        tipPercent.innerText = t.value;
-        tip2Percent.innerText = 'You are tipping ' + t.value;
-        let tip = calculateTip(inputAmount, parseFloat(t.value) / 100);
+        tipPercent.innerText = tipButton.value;
+        tip2Percent.innerText = 'You are tipping ' + tipButton.value;
+        let tip = calculateTip(inputAmount, parseFloat(tipButton.value) / 100);
         tipAmount.innerText = tip.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
         totalAmt.innerText = (inputAmount + tip).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     }
